@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato — Calculadora de Dutching</title>
+  <meta name="description"
+    content="Entre em contato com a equipe da Calculadora de Dutching. Dúvidas, sugestões ou parcerias.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23080e14'/%3E%3Cpath d='M32 10 A22 22 0 0 1 53.1 21.5 L32 32 Z' fill='%2300e5a0' opacity='.95'/%3E%3Cpath d='M53.1 21.5 A22 22 0 0 1 53.1 42.5 L32 32 Z' fill='%2300b8ff' opacity='.95'/%3E%3Cpath d='M53.1 42.5 A22 22 0 0 1 32 54 L32 32 Z' fill='%23ff6b35' opacity='.9'/%3E%3Ccircle cx='32' cy='32' r='11' fill='%23080e14'/%3E%3Ctext x='32' y='36.5' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='13' fill='%2300e5a0'%3ED%3C/text%3E%3C/svg%3E">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet">
+    <link rel="canonical" href="https://calculadoradedutching.online/contact.html" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #080e14;
+      --surface: #0d1620;
+      --surface2: #111c28;
+      --border: #1e3048;
+      --border-glow: #00e5a044;
+      --accent: #00e5a0;
+      --accent2: #00b8ff;
+      --accent3: #ff6b35;
+      --text: #e8f4ff;
+      --text-muted: #6a8aaa;
+      --text-dim: #3a5a7a;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg) !important;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: .18;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -20%;
+      right: -10%;
+      width: 60vw;
+      height: 60vw;
+      max-width: 700px;
+      background: radial-gradient(ellipse, #00b8ff0a 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo svg {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 8px #00e5a050);
+    }
+
+    .nav-logo span {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: all .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: #00e5a010;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      margin-bottom: 52px;
+    }
+
+    .page-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(28px, 6vw, 46px);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.08;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+    }
+
+    .page-header p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      max-width: 480px;
+    }
+
+    /* LAYOUT */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* FORM */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+    }
+
+    .form-card h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-card h2::before {
+      content: '';
+      display: block;
+      width: 3px;
+      height: 18px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      padding: 12px 16px;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: var(--text-dim);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px #00e5a015;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.7;
+    }
+
+    .field select {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%236a8aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+
+    .field select option {
+      background: var(--surface2);
+      color: var(--text);
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #080e14;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: .02em;
+      padding: 16px;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all .25s;
+      box-shadow: 0 0 24px #00e5a030;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px #00e5a050;
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* SUCCESS STATE */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success-msg .check {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .success-msg h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .success-msg p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+    }
+
+    .info-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card p {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    .info-card a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    .info-card a:hover {
+      text-decoration: underline;
+    }
+
+    .response-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: #00e5a012;
+      border: 1px solid #00e5a030;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.8)
+      }
+    }
+
+    .faq-mini {
+      margin-top: 0;
+    }
+
+    .faq-mini-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-mini-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .faq-mini-item strong {
+      font-size: 13px;
+      color: var(--text);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .faq-mini-item span {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 0 0;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .06em;
+      margin-top: 60px;
+      line-height: 2.4;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media(max-width:720px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        padding: 24px 20px;
+      }
+    }
+
+    @media(max-width:600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <nav>
+      <a class="nav-logo" href="/">
+        <svg viewBox="0 0 56 56" fill="none">
+          <rect width="56" height="56" rx="14" fill="#0d1620" />
+          <rect x=".5" y=".5" width="55" height="55" rx="13.5" stroke="#1e3048" />
+          <path d="M28 6 A22 22 0 0 1 49.1 17.5 L28 28 Z" fill="#00e5a0" opacity=".95" />
+          <path d="M49.1 17.5 A22 22 0 0 1 49.1 38.5 L28 28 Z" fill="#00b8ff" opacity=".95" />
+          <path d="M49.1 38.5 A22 22 0 0 1 28 50 L28 28 Z" fill="#ff6b35" opacity=".9" />
+          <path d="M28 50 A22 22 0 0 1 6.9 38.5 L28 28 Z" fill="#00e5a0" opacity=".4" />
+          <path d="M6.9 38.5 A22 22 0 0 1 6.9 17.5 L28 28 Z" fill="#00b8ff" opacity=".4" />
+          <path d="M6.9 17.5 A22 22 0 0 1 28 6 L28 28 Z" fill="#ff6b35" opacity=".35" />
+          <circle cx="28" cy="28" r="10" fill="#0d1620" /><text x="28" y="32.5" text-anchor="middle"
+            font-family="Syne,sans-serif" font-weight="800" font-size="11" fill="#00e5a0">D</text>
+        </svg>
+        <span>Calculadora de Dutching</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Calculadora</a>
+        <a href="about.html">Sobre</a>
+        <a href="contact.html">Contato</a>
+      </div>
+    </nav>
+
+    <div class="page-header">
+      <div class="page-tag">// Fale conosco</div>
+      <h1>Contato</h1>
+      <p>Tem uma dúvida, sugestão ou encontrou algum erro? Preencha o formulário e responderemos em breve.</p>
+    </div>
+
+    <div class="contact-layout">
+
+      <!-- FORM -->
+      <div class="form-card">
+        <h2>Envie sua mensagem</h2>
+        <div id="contact-form">
+          <div class="field">
+            <label>Seu nome *</label>
+            <input type="text" id="f-name" placeholder="Como você se chama?" autocomplete="name">
+          </div>
+          <div class="field">
+            <label>E-mail *</label>
+            <input type="email" id="f-email" placeholder="seu@email.com" autocomplete="email">
+          </div>
+          <div class="field">
+            <label>Assunto *</label>
+            <select id="f-subject">
+              <option value="" disabled selected>Selecione um assunto</option>
+              <option value="duvida">Dúvida sobre a calculadora</option>
+              <option value="erro">Reportar um erro</option>
+              <option value="sugestao">Sugestão de melhoria</option>
+              <option value="parceria">Parceria / divulgação</option>
+              <option value="privacidade">Privacidade / LGPD</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Mensagem *</label>
+            <textarea id="f-message"
+              placeholder="Descreva sua dúvida ou sugestão com o máximo de detalhes possível..."></textarea>
+          </div>
+          <button class="submit-btn" onclick="submitForm()">Enviar mensagem →</button>
+        </div>
+        <div class="success-msg" id="success-msg">
+          <div class="check">✅</div>
+          <h3>Mensagem enviada!</h3>
+          <p>Obrigado pelo contato. Responderemos em até 2 dias úteis no e-mail informado.</p>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+
+        <div class="info-card">
+          <h3>⏱ Tempo de resposta</h3>
+          <p>Respondemos todas as mensagens em até 2 dias úteis.</p>
+          <div class="response-time"><span class="dot"></span> Online</div>
+        </div>
+
+        <div class="info-card">
+          <h3>📧 E-mail direto</h3>
+          <p>Prefere enviar por e-mail? Escreva para:<br>
+            <a href="mailto:contato@calculadoradedutching.com">contato@calculadoradedutching.com</a>
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>❓ Perguntas frequentes</h3>
+          <div class="faq-mini">
+            <div class="faq-mini-item">
+              <strong>A calculadora tem algum custo?</strong>
+              <span>Não. É 100% gratuita e sem cadastro.</span>
+            </div>
+            <div class="faq-mini-item">
+              <strong>Posso usar no celular?</strong>
+              <span>Sim, funciona em qualquer navegador mobile.</span>
+            </div>
+            <div class="faq-mini-item">
+              <strong>Como reportar um erro de cálculo?</strong>
+              <span>Use o formulário ao lado, selecione "Reportar um erro" e informe os valores que causaram o
+                problema.</span>
+            </div>
+            <div class="faq-mini-item">
+              <strong>Aceita parcerias?</strong>
+              <span>Sim. Selecione "Parceria / divulgação" no assunto do formulário.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3>⚖️ Páginas legais</h3>
+          <p>
+            <a href="privacy-policy.html">Política de Privacidade</a><br>
+            <a href="terms-of-use.html">Termos de Uso</a><br>
+            <a href="disclaimer.html">Aviso Legal</a><br>
+            <a href="cookie-policy.html">Política de Cookies</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <footer>
+      <p><a href="/">Calculadora</a> &nbsp;·&nbsp; <a href="privacy-policy.html">Privacidade</a> &nbsp;·&nbsp;
+        <a href="terms-of-use.html">Termos de Uso</a> &nbsp;·&nbsp; <a href="disclaimer.html">Aviso Legal</a>
+        &nbsp;·&nbsp; <a href="cookie-policy.html">Cookies</a> &nbsp;·&nbsp; <a href="about.html">Sobre</a>
+        &nbsp;·&nbsp; <a href="contact.html">Contato</a></p>
+         <p>© 2026 Calculadora de Dutching — Ferramenta de cálculo matemático gratuita &nbsp;·&nbsp; </p>
+
+    </footer>
+
+  </div>
+
+  <script>
+    function submitForm() {
+      const name = document.getElementById('f-name').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      const subject = document.getElementById('f-subject').value;
+      const message = document.getElementById('f-message').value.trim();
+
+      if (!name || !email || !subject || !message) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Por favor, insira um e-mail válido.');
+        return;
+      }
+
+      // Show success (in production, replace with actual form submission e.g. Formspree/EmailJS)
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+    }
+  </script>
+</body>
+
+</html>

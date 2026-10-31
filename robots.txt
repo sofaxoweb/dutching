@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+site_map:https://calculadoradedutching.online/site_map.xml

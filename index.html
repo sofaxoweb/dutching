@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Dutching — Tenha Retornos Iguais nas Apostas</title>
+  <meta name="description"
+    content="A melhor calculadora de dutching online e gratuita. Distribua seu investimento entre várias seleções e tenha retornos iguais em qualquer resultado vencedor. Funciona com Betfair, Bet365, Betano e todas as casas de apostas.">
+  <meta name="keywords"
+    content="calculadora dutching, calculadora dutching online, calculadora de apostas, dutching apostas, calculadora dutching odds, calculadora dutching betfair, calculadora dutching bet365, calculadora dutching betano, como usar calculadora dutching">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23080e14'/%3E%3Cpath d='M32 10 A22 22 0 0 1 53.1 21.5 L32 32 Z' fill='%2300e5a0' opacity='.95'/%3E%3Cpath d='M53.1 21.5 A22 22 0 0 1 53.1 42.5 L32 32 Z' fill='%2300b8ff' opacity='.95'/%3E%3Cpath d='M53.1 42.5 A22 22 0 0 1 32 54 L32 32 Z' fill='%23ff6b35' opacity='.9'/%3E%3Cpath d='M32 54 A22 22 0 0 1 10.9 42.5 L32 32 Z' fill='%2300e5a0' opacity='.4'/%3E%3Cpath d='M10.9 42.5 A22 22 0 0 1 10.9 21.5 L32 32 Z' fill='%2300b8ff' opacity='.4'/%3E%3Cpath d='M10.9 21.5 A22 22 0 0 1 32 10 L32 32 Z' fill='%23ff6b35' opacity='.35'/%3E%3Ccircle cx='32' cy='32' r='11' fill='%23080e14'/%3E%3Ctext x='32' y='36.5' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='13' fill='%2300e5a0'%3ED%3C/text%3E%3C/svg%3E">
+  
+  <link rel="canonical" href="https://calculadoradedutching.online/" />
+<meta name="robots" content="index, follow" />  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #080e14;
+      --surface: #0d1620;
+      --surface2: #111c28;
+      --surface3: #162233;
+      --border: #1e3048;
+      --border-glow: #00e5a044;
+      --accent: #00e5a0;
+      --accent2: #00b8ff;
+      --accent3: #ff6b35;
+      --text: #e8f4ff;
+      --text-muted: #6a8aaa;
+      --text-dim: #c6c6c7;
+      --profit: #00e5a0;
+      --loss: #ff4f6e;
+      --warn: #ffb340;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: sans-serif;
+      /* min-height: 100vh; */
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.22;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse, #00e5a010 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 40px 0 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .logo-mark {
+      width: 58px;
+      height: 58px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 14px #00e5a055);
+    }
+
+    .header-text h1 {
+      font-size: clamp(22px, 5vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-text p {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent)), transparent);
+      opacity: 0.7;
+    }
+
+    .stat-card:nth-child(1) {
+      --card-accent: var(--accent2);
+    }
+
+    .stat-card:nth-child(2) {
+      --card-accent: var(--accent);
+    }
+
+    .stat-card:nth-child(3) {
+      --card-accent: var(--accent3);
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: 'DM Mono', monospace;
+      font-size: clamp(16px, 2.5vw, 24px);
+      font-weight: 500;
+      color: var(--text);
+      transition: color 0.4s, text-shadow 0.4s;
+      word-break: break-all;
+    }
+
+    .stat-value.positive {
+      color: var(--profit);
+      text-shadow: 0 0 18px #00e5a040;
+    }
+
+    .stat-value.negative {
+      color: var(--loss);
+      text-shadow: 0 0 18px #ff4f6e40;
+    }
+
+    /* ── WARNING BANNER ── */
+    #warning-banner {
+      display: none;
+      background: #ffb34012;
+      border: 1px solid #ffb34040;
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      margin-bottom: 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--warn);
+      letter-spacing: 0.04em;
+    }
+
+    #warning-banner.show {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ── INVESTMENT INPUT ── */
+    .invest-row {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .invest-row:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--border-glow);
+    }
+
+    .invest-label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .invest-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .currency-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      background: #00e5a014;
+      border: 1px solid #00e5a030;
+      border-radius: 6px;
+      padding: 4px 10px;
+    }
+
+    .invest-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text);
+      width: 100%;
+      caret-color: var(--accent);
+    }
+
+    .invest-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .table-header {
+      display: grid;
+      grid-template-columns: 52px 1fr 1fr 1fr 60px;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 8px;
+    }
+
+    .th {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 14px 16px;
+    }
+
+    .bet-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 1fr 1fr 60px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      padding: 0 8px;
+      transition: background 0.2s;
+      animation: rowIn 0.25s ease both;
+    }
+
+    @keyframes rowIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .bet-row:last-child {
+      border-bottom: none;
+    }
+
+    .bet-row:hover {
+      background: var(--surface2);
+    }
+
+    .row-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .cell {
+      padding: 10px 10px 10px 16px;
+    }
+
+    .odds-input,
+    .stake-display,
+    .return-display {
+      width: 100%;
+      background: var(--surface3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      color: var(--text);
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .odds-input:focus {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 3px #00b8ff20;
+      background: var(--surface2);
+    }
+
+    .odds-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .stake-display,
+    .return-display {
+      cursor: default;
+      background: #0a1520;
+      border-color: #1a2e42;
+      color: var(--text-muted);
+    }
+
+    .return-display.active {
+      color: var(--accent);
+    }
+
+    .stake-display.active {
+      color: var(--accent2);
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 8px 6px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      margin: auto;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: #00e5a010;
+    }
+
+    .copy-btn.copied {
+      border-color: var(--profit);
+      color: var(--profit);
+      background: #00e5a015;
+    }
+
+    .copy-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    /* ── ACTIONS ── */
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      padding: 13px 24px;
+      cursor: pointer;
+      border: 1px solid;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-add {
+      background: #00b8ff12;
+      border-color: #00b8ff40;
+      color: var(--accent2);
+    }
+
+    .btn-add:hover {
+      background: #00b8ff22;
+      border-color: var(--accent2);
+      box-shadow: 0 0 18px #00b8ff28;
+    }
+
+    .btn-reset {
+      background: #ff4f6e0a;
+      border-color: #ff4f6e30;
+      color: #ff8fa0;
+    }
+
+    .btn-reset:hover {
+      background: #ff4f6e18;
+      border-color: var(--loss);
+      box-shadow: 0 0 18px #ff4f6e20;
+    }
+
+    /* ── CONTENT ── */
+    .content-section {
+      border-top: 1px solid var(--border);
+      padding-top: 56px;
+    }
+
+    .section-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .content-section h2 {
+      font-size: clamp(20px, 4vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .content-section h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .lead-text {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      max-width: 740px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+
+    .info-card:hover {
+      border-color: #00e5a028;
+      transform: translateY(-2px);
+    }
+
+    .info-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+      opacity: 0.2;
+    }
+
+    .info-icon {
+      font-size: 26px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .info-card p {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: var(--text-muted);
+    }
+
+    .legend-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    .legend-row {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .legend-row:last-child {
+      border-bottom: none;
+    }
+
+    .legend-key {
+      background: var(--surface2);
+      padding: 16px 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .legend-val {
+      padding: 16px 20px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    .steps {
+      counter-reset: step-counter;
+      margin-bottom: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .step-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px 20px 72px;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+
+    .step-item:hover {
+      border-color: #00e5a022;
+    }
+
+    .step-num {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, #00e5a020, #00b8ff20);
+      border: 1px solid #00e5a030;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .step-item h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .step-item p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .faq {
+      margin-bottom: 48px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-q {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+
+    .faq-q:hover {
+      color: var(--accent);
+    }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 17px;
+      color: var(--accent);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-a {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: var(--text-muted);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 320px;
+      padding-top: 12px;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #00e5a008, #00b8ff08);
+      border: 1px solid #00e5a022;
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 48px;
+    }
+
+    .highlight-box p {
+      font-size: 14.5px;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    .highlight-box strong {
+      color: var(--accent);
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 0 0;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      margin-top: 60px;
+      line-height: 2.2;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 12px 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      box-shadow: 0 8px 32px #00e5a025;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 9999;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .stats-bar {
+        gap: 4px;
+        margin-bottom: 13px;
+      }
+
+      nav {
+        padding: 7px 0px 9px 0px;
+        margin-bottom: -48px;
+      }
+
+
+      .stat-card {
+        padding: 6px 15px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stats-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stats-bar .stat-card:nth-child(3) {
+        grid-column: span 2;
+      }
+
+      .invest-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .table-header,
+      .bet-row {
+        grid-template-columns: 38px 1fr 1fr 1fr 44px;
+      }
+
+      .th,
+      .cell,
+      .row-num {
+        padding: 9px 7px;
+      }
+
+      .odds-input,
+      .stake-display,
+      .return-display {
+        font-size: 12px;
+        padding: 8px 9px;
+      }
+
+      .step-item {
+        padding: 16px 16px 16px 64px;
+      }
+
+      .legend-row {
+        grid-template-columns: 110px 1fr;
+      }
+
+      .legend-key {
+        font-size: 11px;
+        padding: 14px;
+      }
+
+      .legend-val {
+        padding: 14px;
+        font-size: 13px;
+      }
+    }
+  </style>
+  <style>
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo svg {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 8px #00e5a050);
+    }
+
+    .nav-logo span {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: all .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: #00e5a010;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        margin-bottom: 5px;
+      }
+
+      .invest-row {
+        padding: 11px 28px;
+        margin-bottom: 24px;
+        gap: 7px;
+      }
+      .invest-input{
+        font-size: 16px;
+      }
+      .wrapper{
+       padding:  0 11px 80px;
+      }
+      header{
+        margin-bottom: 10px;
+      }
+      }
+  </style>
+    <!-- featured on css -->
+    <style>
+        /* Container */
+        .diamond-ticker {
+            /* background: var(--dark-blue); */
+            padding: 25px 0;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        /* Track */
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: scrollTicker 10s linear infinite;
+        }
+
+        /* Pause on hover */
+        .diamond-ticker:hover .ticker-track {
+            animation-play-state: paused;
+        }
+
+        /* Item */
+        .ticker-item {
+            flex: 0 0 auto;
+            margin: 0 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .ticker-item a {
+            display: inline-block;
+        }
+
+        .ticker-item img {
+            height: 50px;
+            /* Small logo size */
+            width: auto;
+            /* filter: grayscale(100%) brightness(0.8); */
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect */
+        .ticker-item:hover img {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.1);
+        }
+
+        /* Animation */
+        @keyframes scrollTicker {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ticker-item img {
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <nav>
+      <a class="nav-logo" href="/">
+        <svg viewBox="0 0 56 56" fill="none">
+          <rect width="56" height="56" rx="14" fill="#0d1620" />
+          <rect x=".5" y=".5" width="55" height="55" rx="13.5" stroke="#1e3048" />
+          <path d="M28 6 A22 22 0 0 1 49.1 17.5 L28 28 Z" fill="#00e5a0" opacity=".95" />
+          <path d="M49.1 17.5 A22 22 0 0 1 49.1 38.5 L28 28 Z" fill="#00b8ff" opacity=".95" />
+          <path d="M49.1 38.5 A22 22 0 0 1 28 50 L28 28 Z" fill="#ff6b35" opacity=".9" />
+          <path d="M28 50 A22 22 0 0 1 6.9 38.5 L28 28 Z" fill="#00e5a0" opacity=".4" />
+          <path d="M6.9 38.5 A22 22 0 0 1 6.9 17.5 L28 28 Z" fill="#00b8ff" opacity=".4" />
+          <path d="M6.9 17.5 A22 22 0 0 1 28 6 L28 28 Z" fill="#ff6b35" opacity=".35" />
+          <circle cx="28" cy="28" r="10" fill="#0d1620" /><text x="28" y="32.5" text-anchor="middle"
+            font-family="Syne,sans-serif" font-weight="800" font-size="11" fill="#00e5a0">D</text>
+        </svg>
+        <span>Calculadora de Dutching</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Calculadora</a>
+        <a href="about.html">Sobre</a>
+        <a href="contact.html">Contato</a>
+      </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+
+
+      <div class="header-text">
+        <h1>Calculadora de Dutching</h1>
+        <p>Tenha retornos iguais em qualquer seleção vencedora</p>
+      </div>
+    </header>
+
+    <!-- STATS -->
+     
+    <!-- INVESTIMENTO -->
+    <div class="invest-row">
+      <div class="invest-label">Investimento</div>
+      <div class="invest-input-wrap">
+        <span class="currency-badge">R$</span>
+        <!-- Default 10000 like competitor so calculator works on load -->
+        <input type="text" id="total-invest" class="invest-input" placeholder="Enter Here" value=""
+          oninput="onInvestInput(this)" onblur="formatInvestField(this)">
+      </div>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-label">Investimento</div>
+        <div class="stat-value" id="display-invest">R$ 0,00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Lucro</div>
+        <div class="stat-value" id="display-profit">R$ 0,00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Retorno</div>
+        <div class="stat-value" id="display-return">R$ 0,00</div>
+      </div>
+    </div>
+
+    <!-- WARNING BANNER (shown when overround >= 100%) -->
+    <div id="warning-banner">
+      <span>⚠️</span>
+      <span>ATENÇÃO: Não se consegue obter lucro com estas Odds — o overround das bookies está acima de 100%.</span>
+    </div>
+
+
+    <!-- TABELA -->
+    <div class="table-wrap">
+      <div class="table-header">
+        <div class="th">#</div>
+        <div class="th">Odds</div>
+        <div class="th">Investimento</div>
+        <div class="th">Retorno</div>
+        <div class="th" style="text-align:center">Copiar</div>
+      </div>
+      <div id="rows-container"></div>
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="actions">
+      <button class="btn btn-add" onclick="addRow()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        Adicionar Mais Linhas
+      </button>
+      <button class="btn btn-reset" onclick="resetCalc()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2 7a5 5 0 1 0 1-3.1M2 7V3.5M2 7H5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        Reiniciar Calculadora
+      </button>
+    </div>
+
+    <!-- ═══════════════ CONTEÚDO SEMÂNTICO ═══════════════ -->
+   <div class="content-section">
+
+    <div class="section-tag">// Sobre a ferramenta</div>
+    <h2>Calculadora de Dutching Online e Gratuita</h2>
+    <p class="lead-text">
+      A <strong>Calculadora de Dutching</strong> é uma ferramenta matemática online e gratuita para distribuição proporcional de investimentos entre múltiplas seleções, garantindo retorno uniforme em qualquer resultado. Funciona diretamente no navegador — sem download, sem instalação, sem necessidade de planilha Excel — e aceita odds decimais de qualquer plataforma, incluindo <strong>Betfair</strong>, <strong>Bet365</strong> e <strong>Betano</strong>.
+    </p>
+
+    <div class="highlight-box">
+      <p>
+        <strong>Como usar a Calculadora de Dutching:</strong> informe o valor total do seu investimento em reais (R$), depois insira as odds decimais de cada seleção que deseja cobrir no evento. A calculadora distribui automaticamente o stake correto em cada aposta e exibe o retorno igual para qualquer seleção vencedora — assim como o lucro ou prejuízo esperado da operação.
+      </p>
+    </div>
+
+    <!-- LEGENDA -->
+    <div class="section-tag">// Legenda</div>
+    <h2>O que significa cada campo</h2>
+
+    <div class="legend-table">
+      <div class="legend-row">
+        <div class="legend-key">Investimento</div>
+        <div class="legend-val">Valor total a distribuir nas apostas. É o único número que você precisa informar manualmente — a calculadora cuida do resto.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-key">Lucro</div>
+        <div class="legend-val">Cálculo do retorno do investimento total subtraído do valor da aposta. Um lucro positivo indica que o mercado está favorável; negativo indica overround da bookie acima de 100%.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-key">Retorno</div>
+        <div class="legend-val">Ganhos se qualquer uma das apostas cobertas for vencedora. No dutching esse valor é sempre igual em todas as seleções — essa é a essência da estratégia.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-key">Odds</div>
+        <div class="legend-val">O valor pago pela bookie no evento em que você apostou. Quanto maior a probabilidade de um resultado acontecer, menor será o preço que as bookies irão te pagar e consequentemente o retorno será baixo também. Assim como, quanto menos provável o resultado, maior será a odd do evento.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-key">Investimento (linha)</div>
+        <div class="legend-val">Stake calculado automaticamente para cada seleção individual. Seleções com odds menores recebem stakes maiores, pois têm maior probabilidade implícita.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- O QUE É DUTCHING -->
+    <div class="section-tag">// Conceito</div>
+    <h2>O que é Dutching?</h2>
+    <p class="lead-text">
+      <strong>Dutching</strong> é o compartilhamento do risco entre várias apostas em um mesmo evento. É preciso calcular a aposta correta a ser colocada em cada seleção para que o retorno seja o mesmo se alguma delas for vencedora. O termo vem do contador de Al Capone, apelidado de "Dutch" Schultz, que aplicou a técnica sistematicamente nos hipódromos americanos nos anos 1930.
+    </p>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <span class="info-icon">📊</span>
+        <h3>O que é ODD</h3>
+        <p>ODD é o valor pago no evento em que você apostou. Quanto maior a probabilidade de um resultado acontecer, menor será o preço que as bookies irão te pagar e consequentemente o retorno será baixo também. Assim como, quanto menos provável o resultado, maior será a odd do evento. Use sempre o formato decimal (ex.: 4,50).</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🧮</span>
+        <h3>Fórmula da Calculadora de Dutching</h3>
+        <p>A fórmula do dutching calcula cada stake como: <em>Stake = Investimento ÷ (Odd × Soma das Probabilidades Implícitas)</em>, onde Probabilidade Implícita = 1 ÷ Odd. O retorno alvo é: <em>Retorno = Investimento ÷ Soma das Probabilidades</em>. O lucro é Retorno − Investimento.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🏇</span>
+        <h3>Quando usar o Dutching</h3>
+        <p>Use o dutching quando sua análise aponta para mais de uma seleção forte no mesmo evento. A técnica é muito utilizada em corridas de cavalos, futebol, tênis e speedway. Em vez de arriscar tudo num único favorito, você cobre múltiplos candidatos mantendo o mesmo retorno.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🎁</span>
+        <h3>Calculadora de Dutching com Freebet</h3>
+        <p>Ao receber um freebet em casas como Bet365 ou Betano, apostadores utilizam a calculadora de dutching para converter o bônus em dinheiro real. Distribuindo o valor do freebet entre seleções estratégicas, maximiza-se o lucro líquido independentemente do resultado.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🔄</span>
+        <h3>Dutching Back e Back/Lay</h3>
+        <p>No <strong>dutching back</strong>, você aposta a favor de múltiplas seleções nas bookies. No <strong>dutching back lay</strong> (back/lay), combina apostas a favor (back) em bookmakers com apostas contra (lay) na Betfair Exchange, criando posições equilibradas ou com lucro garantido.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🔐</span>
+        <h3>Dutching como proteção</h3>
+        <p>Apostadores avançados usam o dutching como <strong>proteção de posição</strong>: ao já terem uma aposta vencedora no decorrer do evento, fazem dutching nas demais seleções para garantir retorno mínimo seja qual for o desfecho final — uma das técnicas mais valorizadas no trader esportivo.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- COMO USAR -->
+    <div class="section-tag">// Passo a passo</div>
+    <h2>Como usar a Calculadora de Dutching</h2>
+    <p class="lead-text">Cinco passos simples para distribuir seu investimento e ter retornos iguais em qualquer resultado.</p>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <h4>Informe o valor total do investimento</h4>
+        <p>No campo "Investimento" no topo, insira o valor total em reais (R$) que deseja distribuir. Use vírgula como separador decimal (ex.: 100,00). Este é o único dado manual da operação.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <h4>Digite as odds de cada seleção</h4>
+        <p>Para cada seleção que deseja cobrir, insira a odd decimal oferecida pela sua casa de apostas — Betfair, Bet365, Betano ou outra. Aceita tanto ponto quanto vírgula como separador (ex.: 3,50 ou 3.50). Deixe em branco as linhas que não usar.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <h4>Leia os resultados instantaneamente</h4>
+        <p>A calculadora distribui automaticamente o investimento correto em cada linha e exibe o retorno esperado — idêntico em todas as seleções. No topo, você vê o lucro líquido da operação em tempo real.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <h4>Copie os valores de stake</h4>
+        <p>Use o botão "Copiar" ao lado de cada linha para copiar o valor de investimento para a área de transferência. Cole diretamente no campo de aposta da bookie para evitar erros de digitação.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <h4>Adicione mais linhas se necessário</h4>
+        <p>Clique em "Adicionar Mais Linhas" para incluir mais seleções. Útil em corridas de cavalos, futebol virtual (virtual soccer) ou apostas combinadas com múltiplas variáveis.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- FAQ -->
+    <div class="section-tag">// Perguntas frequentes</div>
+    <h2>Dúvidas sobre a Calculadora de Dutching</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          O que é a Calculadora de Dutching e para que serve?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          A Calculadora de Dutching é uma ferramenta online que auxilia apostadores a distribuírem seu investimento entre várias seleções de um mesmo evento, garantindo um retorno uniforme caso qualquer uma delas seja vencedora. Ela calcula automaticamente o valor a apostar em cada seleção com base nas odds decimais e no investimento total informado.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          A calculadora de dutching funciona com Betfair, Bet365 e Betano?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Sim. A calculadora de dutching funciona com qualquer casa de apostas que opere com odds decimais — Betfair, Bet365, Betano, Sportingbet, KTO, Pixbet, Bwin e todas as demais bookies. Basta inserir as odds decimais e o investimento total.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Como usar a Calculadora de Dutching com Surebet?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Na calculadora de dutching com surebet, você usa odds de diferentes bookmakers para cobrir todos os resultados de um evento com lucro garantido. Se a soma das probabilidades implícitas for inferior a 100%, há arbitragem e a calculadora mostrará lucro positivo no campo "Lucro".
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Preciso baixar alguma coisa para usar a calculadora de dutching?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Não. Esta calculadora de dutching online funciona diretamente no navegador, sem download, sem APK e sem precisar montar uma planilha Excel. Acesse pelo celular ou computador, insira os dados e use imediatamente.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Qual é a fórmula do dutching?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          A fórmula da calculadora de dutching é: Stake por seleção = Investimento Total ÷ (Odd da seleção × Soma de todas as probabilidades implícitas). A probabilidade implícita de cada seleção é 1 ÷ Odd. O retorno alvo = Investimento Total ÷ Soma das probabilidades implícitas. Lucro = Retorno − Investimento Total.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Como fazer uma Calculadora de Dutching no Excel?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Para montar uma calculadora de dutching no Excel: crie uma coluna com as odds, outra com a probabilidade implícita (=1/odd) e some todas as probabilidades. O investimento por linha é =INVESTIMENTO/(ODD*SOMA_PROB) e o retorno alvo =INVESTIMENTO/SOMA_PROB. Porém, esta calculadora online já realiza tudo isso automaticamente.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          O lucro é garantido com o dutching?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          O dutching garante <strong>retorno igual</strong> independentemente de qual seleção vencer. Se a soma das probabilidades implícitas for inferior a 1,0 (surebet), há lucro garantido. Se for superior a 1,0 (overround, o caso mais comum), o retorno será menor que o investimento total — a calculadora exibe um aviso nessa situação.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          A calculadora funciona para apostas em reais (R$)?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Sim. A calculadora de dutching em reais opera com a moeda brasileira (R$), exibindo todos os valores no formato brasileiro — por exemplo R$ 4.545. A lógica matemática é a mesma para qualquer moeda.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          O que é a Calculadora de Dutching do Paulo Rebelo?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Paulo Rebelo é um dos traders esportivos mais conhecidos do Brasil e popularizou diversas estratégias de apostas, incluindo o dutching. A calculadora de dutching do Paulo Rebelo (também referenciada como Paulo Rabelo) nada mais é do que a calculadora de dutching padrão aplicada ao método ensinado por ele — distribuir o investimento entre seleções para garantir retorno uniforme. Esta ferramenta realiza exatamente esses cálculos de forma gratuita e online.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Como usar a Calculadora de Dutching no Trader Esportivo?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          No trader esportivo, o dutching é usado para cobrir múltiplas seleções em tempo real durante um evento. Você insere as odds ao vivo oferecidas pelas bookies, define o investimento total e a calculadora distribui os stakes instantaneamente. É uma técnica de gestão de risco muito ensinada no trading esportivo, especialmente em mercados de corridas e futebol ao vivo.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Calculadora de Dutching para Lay — como funciona?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          No dutching lay, em vez de apostar a favor (back) de várias seleções, você aposta contra (lay) múltiplas seleções na Betfair Exchange. A lógica é inversa: você garante lucro se nenhuma das seleções cobertas vencer. A calculadora de dutching lay distribui a responsabilidade de lay proporcionalmente entre as seleções, considerando as odds e a comissão da exchange (geralmente 5% na Betfair).
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Calculadora de Dutching para Betfair — contra empate e outros mercados
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          A calculadora de dutching para Betfair funciona em qualquer mercado da exchange — incluindo "contra empate", onde você faz lay no empate e back nos dois times. Basta inserir as odds da Betfair no formato decimal. Lembre-se de considerar a comissão da Betfair (5% padrão) ao calcular o lucro líquido real da operação.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Calculadora de Dutching para Speedway — como calcular?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          O speedway é um dos mercados favoritos para o dutching por ter múltiplos participantes com odds competitivas. A calculadora de dutching para speedway funciona da mesma forma: insira as odds dos pilotos que deseja cobrir e o investimento total. A ferramenta distribui os stakes automaticamente para que o retorno seja o mesmo independentemente de qual piloto vencer.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Calculadora de Dutching Combinadas — o que é?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          O dutching combinadas aplica a lógica de distribuição de stakes em apostas múltiplas (acumuladores). Em vez de uma seleção simples por linha, cada linha representa uma combinação de eventos. A calculadora distribui o investimento entre as combinações para garantir retorno uniforme em qualquer acumulador vencedor, reduzindo o risco das apostas combinadas tradicionais.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Calculadora de Dutching para Odd 1.5 — vale a pena?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Usar a calculadora de dutching com odds baixas como 1,5 é válido quando você identifica múltiplas seleções favoritas num mesmo evento. Com odds menores, os stakes por seleção serão maiores e o lucro potencial menor, mas o risco também é mais controlado. A calculadora mostra automaticamente se o conjunto de odds escolhido gera lucro (surebet) ou prejuízo (overround).
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Onde encontrar a Calculadora de Dutching da Academia das Apostas?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          A Academia das Apostas é uma plataforma educacional de apostas esportivas que disponibiliza ferramentas e tutoriais sobre dutching. A calculadora de dutching da Academia das Apostas (também chamada de calculadora dutching aceodds) realiza os mesmos cálculos desta ferramenta — distribuição proporcional de stakes para retorno uniforme. Esta calculadora online é gratuita e não requer cadastro ou download.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Como usar a Calculadora de Dutching no Correct Score?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          No mercado de correct score (placar exato), o dutching é muito utilizado para cobrir múltiplos placares possíveis num mesmo jogo. Por exemplo, cobrir 1-0, 2-0 e 2-1 ao mesmo tempo. Insira as odds de cada placar que deseja cobrir, defina o investimento e a calculadora de dutching distribui os stakes para que o retorno seja idêntico em qualquer um dos placares cobertos.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Existe Calculadora de Dutching para iOS ou Android (APK)?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          Não há necessidade de baixar um APK ou aplicativo dedicado. Esta calculadora de dutching para iOS e Android funciona diretamente no navegador do seu celular — Safari no iPhone ou Chrome no Android — sem instalação. Basta acessar a página e usar. É mais prática que qualquer APK pois está sempre atualizada e não ocupa espaço no dispositivo.
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-tag">// Técnicas avançadas</div>
+    <h2>Técnicas de Dutching para apostadores</h2>
+    <p class="lead-text">Dominar a calculadora de dutching vai além de saber operar a ferramenta — envolve disciplina na seleção de mercados, gestão do bankroll e leitura de odds.</p>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <span class="info-icon">🎯</span>
+        <h3>Escolha os mercados certos</h3>
+        <p>O dutching funciona melhor em mercados com 3 a 8 seleções competitivas. Em corridas de cavalos, speedway e futebol virtual (virtual soccer), concentre as apostas nas seleções com maior probabilidade real, reduzindo o overround e melhorando o retorno líquido.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">📉</span>
+        <h3>Monitore o overround</h3>
+        <p>Se a soma das probabilidades implícitas for inferior a 100%, você está num mercado lucrativo (value). Acima de 100%, a bookie está com margem — a calculadora exibe o aviso "ATENÇÃO" nessa situação, idêntico ao comportamento das melhores ferramentas do mercado.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🏦</span>
+        <h3>Dutching com responsabilidade</h3>
+        <p>Use a calculadora de dutching de apostas com planejamento e proteção. Defina um bankroll máximo por sessão, nunca aposte mais do que pode perder e registre suas operações — seja numa planilha Excel ou num caderno — para acompanhar a evolução dos resultados.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">📊</span>
+        <h3>Dutching vs. Bookmaking</h3>
+        <p>Enquanto o bookmaking envolve definir as próprias odds e aceitar apostas de outros, o dutching é a técnica do apostador que distribui seu stake entre seleções. A calculadora de dutching e bookmaking ajuda a entender os dois lados do mercado — a margem da casa e a oportunidade do apostador.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">💻</span>
+        <h3>Online vs. Planilha Excel</h3>
+        <p>A calculadora de dutching online elimina a necessidade de baixar ou montar uma planilha Excel. Diferente da calculadora de dutching em Excel (download), esta ferramenta funciona no navegador, em tempo real, sem fórmulas manuais — e está sempre disponível no Brasil e em qualquer país.</p>
+      </div>
+      <div class="info-card">
+        <span class="info-icon">🔁</span>
+        <h3>Lucrando com o Dutching</h3>
+        <p>Lucrando usando a calculadora de dutching requer identificar mercados com value, comparar odds entre bookies (Betfair, Bet365, Betano, AceOdds) e aplicar stakes corretos. A melhor calculadora de dutching é aquela que você usa consistentemente — com disciplina e gestão de banca.</p>
+      </div>
+    </div>
+
+  </div>
+ <!-- featured on start -->
+    <div class="container-sm diamond-ticker">
+        <h2 class="section-title text-center">Featured On</h2>
+        <div class="ticker-track">
+
+            <!-- Logo Item -->
+            <div class="ticker-item">
+                <a target="_blank" href="https://acidtools.com"><img src="https://acidtools.com/assets/images/badge.png"
+                        alt="Acid Tools" height="54"></a>
+            </div>
+<a href="https://open-launch.com/projects/j-smith" target="_blank" rel="noopener">
+  <img src="https://open-launch.com/api/badge/2612a33f-1ac6-447a-b2f4-8e2753f0accb/featured-light.svg" alt="Featured on Open-Launch" width="200" height="50" />
+</a>
+            <div class="ticker-item">
+                <a href="https://wired.business" target="_blank"><img src="https://wired.business/badge0-white.svg"
+                        alt="Featured on Wired Business" width="200" height="54"></a>
+            </div>
+            <div class="ticker-item">
+                <a href="https://viesearch.com/">Viesearch - The Human-curated Search Engine</a>
+            </div>
+            <div class="ticker-item">
+                <a target="_blank" href="https://aigc160.com"><img src="https://aigc160.com/assets/images/badge.png"
+                        alt="AIGC 160" height="54"></a>
+            </div>
+            <div class="ticker-item">
+                <a href="https://open-launch.com/projects/diamond-audio-city" target="_blank" rel="noopener">
+                    <img src="https://open-launch.com/api/badge/32e141e9-7dda-4aa9-a72c-481cc81957a5/featured-light.svg"
+                        alt="Featured on Open-Launch" width="200" height="50" />
+                </a>
+            </div>
+            <div class="ticker-item">
+              <a href="https://fazier.com" target="_blank"><img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=featured&theme=light" width=250 alt="Fazier badge" /></a>
+            </div>
+
+
+
+            <!-- Duplicate logos for seamless loop -->
+            <div class="ticker-item">
+                <a href="https://verifieddr.com/website/startupfa-st" target="_blank"><img
+                        src="https://verifieddr.com/badge/startupfa-st.svg"
+                        alt="Verified DR - Verified Domain Rating for startupfa.st" width="220" height="68" /></a>
+            </div>
+            <div class="ticker-item">
+                <a href="https://twelve.tools" target="_blank"><img src="https://twelve.tools/badge0-white.svg"
+                        alt="Featured on Twelve Tools" width="200" height="54"></a>
+            </div>
+            <div class="ticker-item">
+                <a href="https://findly.tools/diamond-audio-city?utm_source=diamond-audio-city" target="_blank">
+                    <img src="https://findly.tools/badges/findly-tools-badge-light.svg" alt="Featured on findly.tools"
+                        width="150" />
+                </a>
+            </div>
+            <div class="ticker-item">
+                <a target="_blank" href="https://goodaitools.com"><img
+                        src="https://goodaitools.com/assets/images/badge.png" alt="Good AI Tools" height="54"></a>
+            </div>
+            <div class="ticker-item">
+                <a href="https://verifieddr.com/website/diamondaudiocity-com" target="_blank"><img src="https://verifieddr.com/badge/diamondaudiocity-com.svg" alt="Verified DR - Verified Domain Rating for diamondaudiocity.com" width="220" height="68" /></a>
+            </div>
+            <div class="ticker-item">
+                <a target="_blank" href="https://startupbenchmarks.com"><img
+                        src="https://startupbenchmarks.com/assets/images/badge.png" alt="Startup Benchmarks"
+                        height="54"></a>
+            </div>
+            <div class="ticker-item">
+                <a target="_blank" href="https://aixcollection.com"><img
+                        src="https://aixcollection.com/assets/images/badge.png" alt="AI X Collection" height="54"></a>
+            </div>
+            <div class="ticker-item">
+                <a target="_blank" href="https://unitelist.com"><img src="https://unitelist.com/assets/images/badge.png"
+                        alt="Unite List" height="54"></a>
+            </div>
+            <div class="ticker-item">
+                <a target="_blank" href="https://www.ailabhub.online/"></a>
+            </div>
+            <div class="ticker-item">
+                <a href="https://www.aitoolzdir.com" target="_blank" >AI Toolz Dir </a>
+            </div>
+            <div class="ticker-item">
+                <a href="https://shipybara.com/projects/diamond-audio-city" target="_blank" rel="noopener">
+                    <img src="https://shipybara.com/images/badges/shipybara-badge-light.svg" alt="Featured on Shipybara"
+                        width="150" height="54" />
+                </a>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- featured on end -->
+    <footer>
+      <p>
+        <a href="about.html">Sobre</a> &nbsp;·&nbsp;
+        <a href="contact.html">Contato</a> &nbsp;·&nbsp;
+        <a href="privacy-policy.html">Privacidade</a> &nbsp;·&nbsp;
+        <a href="terms-of-use.html">Termos de Uso</a> &nbsp;·&nbsp;
+        <a href="disclaimer.html">Aviso Legal</a> &nbsp;·&nbsp;
+        <a href="cookie-policy.html">Cookies</a>
+      </p>
+       <p>© 2026 Calculadora de Dutching — Ferramenta de cálculo matemático gratuita &nbsp;·&nbsp; </p>
+
+    </footer>
+
+  </div>
+
+  <div id="toast">✓ Valor copiado para a área de transferência</div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════
+    // CORE CALCULATOR — exact logic parity with competitor
+    // ═══════════════════════════════════════════════════════════
+
+    const DEFAULT_ROWS = 5;
+    let rowCount = 0;
+
+    // ── Number parsing (accepts both "2.20" and "2,20") ──────
+    function parseBR(str) {
+      if (str === '' || str == null) return NaN;
+      // Remove thousand separators (dots before comma) then normalise decimal
+      // e.g. "1.234,56" → "1234.56"  |  "2,20" → "2.20"  |  "2.20" → "2.20"
+      let s = String(str).trim();
+      // If there's a comma, treat it as decimal separator
+      if (s.indexOf(',') !== -1) {
+        s = s.replace(/\./g, '').replace(',', '.');
+      }
+      return parseFloat(s);
+    }
+
+    // Smart BR money formatter: shows decimals only when meaningful
+    // 458.00 → "R$ 458"  |  20.40 → "R$ 20,40"  |  4545.33 → "R$ 4.545,33"
+    function fmtBR(n) {
+      if (isNaN(n) || !isFinite(n)) return 'R$ 0';
+      const r = Math.round(n * 100) / 100;
+      const hasCents = (r % 1 !== 0);
+      return 'R$ ' + r.toLocaleString('pt-BR', {
+        minimumFractionDigits: hasCents ? 2 : 0,
+        maximumFractionDigits: hasCents ? 2 : 0
+      });
+    }
+
+    // Smart odds formatter: strips trailing zeros
+    // 2.00 → "2"  |  2.20 → "2,2"  |  2.25 → "2,25"
+    function fmtOdds(v) {
+      if (isNaN(v) || !isFinite(v)) return '';
+      return v.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
+
+    // Raw number for clipboard
+    function fmtRaw(n) {
+      const r = Math.round(n * 100) / 100;
+      return r.toString();
+    }
+
+    // ── Collect all odds from rows ───────────────────────────
+    function getOdds() {
+      const inputs = document.querySelectorAll('.odds-input');
+      return Array.from(inputs).map(inp => {
+        const v = parseBR(inp.value);
+        return (isNaN(v) || v <= 1) ? 0 : v;
+      });
+    }
+
+    // ── Main calculation ─────────────────────────────────────
+    function calculate() {
+      const investRaw = parseBR(document.getElementById('total-invest').value);
+      const invest = (isNaN(investRaw) || investRaw <= 0) ? 0 : investRaw;
+
+      // Update investment display
+      document.getElementById('display-invest').textContent = fmtBR(invest);
+
+      const odds = getOdds();
+      // Sum of implied probabilities: Σ(1/odd) for all valid odds
+      const sumProb = odds.reduce((acc, o) => acc + (o > 1 ? 1 / o : 0), 0);
+
+      if (sumProb <= 0 || invest <= 0) {
+        clearAllRows();
+        setStats(invest, 0, 0);
+        return;
+      }
+
+      // Target return = invest / sumProb  (same for all winning selections)
+      const targetReturn = invest / sumProb;
+      const profit = targetReturn - invest;
+      const overround = sumProb >= 1; // true = no guaranteed profit
+
+      // Show/hide warning banner (competitor shows this when sumProb >= 1)
+      const banner = document.getElementById('warning-banner');
+      if (overround) {
+        banner.classList.add('show');
+      } else {
+        banner.classList.remove('show');
+      }
+
+      // Update each row
+      odds.forEach((o, i) => {
+        const stakeEl = document.getElementById(`stake-${i + 1}`);
+        const retEl = document.getElementById(`return-${i + 1}`);
+        const copyBtn = document.getElementById(`copy-${i + 1}`);
+        if (!stakeEl || !retEl) return;
+
+        if (o > 1) {
+          // stake_i = invest * (prob_i / sumProb)
+          const rowStake = invest * ((1 / o) / sumProb);
+          stakeEl.textContent = fmtBR(rowStake);
+          stakeEl.classList.add('active');
+          retEl.textContent = fmtBR(targetReturn);
+          retEl.classList.add('active');
+          if (copyBtn) copyBtn.disabled = false;
+        } else {
+          stakeEl.textContent = '—';
+          stakeEl.classList.remove('active');
+          retEl.textContent = '—';
+          retEl.classList.remove('active');
+          if (copyBtn) copyBtn.disabled = true;
+        }
+      });
+
+      setStats(invest, profit, targetReturn);
+    }
+
+    function clearAllRows() {
+      for (let i = 1; i <= rowCount; i++) {
+        const s = document.getElementById(`stake-${i}`);
+        const r = document.getElementById(`return-${i}`);
+        if (s) { s.textContent = '—'; s.classList.remove('active'); }
+        if (r) { r.textContent = '—'; r.classList.remove('active'); }
+        const b = document.getElementById(`copy-${i}`);
+        if (b) b.disabled = true;
+      }
+      document.getElementById('warning-banner').classList.remove('show');
+    }
+
+    function setStats(invest, profit, ret) {
+      document.getElementById('display-invest').textContent = fmtBR(invest);
+      const pEl = document.getElementById('display-profit');
+      pEl.textContent = fmtBR(profit);
+      // Green if profit > 0 (surebet), red if negative (overround)
+      pEl.className = 'stat-value' +
+        (profit > 0.005 ? ' positive' :
+          profit < -0.005 ? ' negative' : '');
+      document.getElementById('display-return').textContent = fmtBR(ret);
+    }
+
+    // ── Investment field handlers ────────────────────────────
+    function onInvestInput(el) {
+      calculate();
+    }
+
+    function formatInvestField(el) {
+      const v = parseBR(el.value);
+      if (!isNaN(v) && v > 0) {
+        const r = Math.round(v * 100) / 100;
+        const hasCents = (r % 1 !== 0);
+        el.value = r.toLocaleString('pt-BR', {
+          minimumFractionDigits: hasCents ? 2 : 0,
+          maximumFractionDigits: hasCents ? 2 : 0
+        });
+      }
+    }
+
+    // ── Add row ──────────────────────────────────────────────
+    function addRow(animate = true) {
+      rowCount++;
+      const container = document.getElementById('rows-container');
+      const row = document.createElement('div');
+      row.className = 'bet-row';
+      if (!animate) row.style.animation = 'none';
+
+      const ordinals = ['1º', '2º', '3º', '4º', '5º', '6º', '7º', '8º', '9º', '10º',
+        '11º', '12º', '13º', '14º', '15º', '16º', '17º', '18º', '19º', '20º'];
+      const label = ordinals[rowCount - 1] || rowCount + 'º';
+
+      row.innerHTML = `
+      <div class="row-num">${label}</div>
+      <div class="cell">
+        <input type="text" class="odds-input" placeholder="Enter"
+          data-row="${rowCount}"
+          oninput="calculate()"
+          onblur="normaliseOddsField(this)">
+      </div>
+      <div class="cell"><div class="stake-display" id="stake-${rowCount}">—</div></div>
+      <div class="cell"><div class="return-display" id="return-${rowCount}">—</div></div>
+      <div class="cell" style="padding:0;">
+        <button class="copy-btn" id="copy-${rowCount}"
+          onclick="copyStake(${rowCount})" title="Copiar investimento" disabled>
+          <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
+            <rect x="4" y="4" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M3 8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v1"
+              stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>`;
+      container.appendChild(row);
+    }
+
+    // Normalise odds field on blur to always show e.g. "2,20"
+    function normaliseOddsField(el) {
+      const v = parseBR(el.value);
+      if (!isNaN(v) && v > 1) {
+        el.value = fmtOdds(v);
+      }
+      calculate();
+    }
+
+    // ── Copy stake to clipboard ──────────────────────────────
+    function copyStake(n) {
+      const el = document.getElementById(`stake-${n}`);
+      if (!el || el.textContent === '—') return;
+
+      // Extract raw number: strip "R$ ", remove thousand-sep dots, normalise decimal comma
+      const raw = el.textContent
+        .replace('R$', '').trim()
+        .replace(/\./g, '')
+        .replace(',', '.');
+
+      navigator.clipboard.writeText(raw).then(() => {
+        const btn = document.getElementById(`copy-${n}`);
+        if (btn) { btn.classList.add('copied'); setTimeout(() => btn.classList.remove('copied'), 1800); }
+        showToast();
+      }).catch(() => {
+        // Fallback for older browsers
+        const tmp = document.createElement('input');
+        document.body.appendChild(tmp);
+        tmp.value = raw;
+        tmp.select();
+        document.execCommand('copy');
+        document.body.removeChild(tmp);
+        showToast();
+      });
+    }
+
+    function showToast() {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2400);
+    }
+
+    // ── Reset ────────────────────────────────────────────────
+    function resetCalc() {
+      document.getElementById('total-invest').value = '10000';
+      document.querySelectorAll('.odds-input').forEach(i => i.value = '');
+      clearAllRows();
+      calculate(); // recalculate with reset investment and empty odds
+    }
+
+    // ── FAQ accordion ────────────────────────────────────────
+    function toggleFaq(el) {
+      el.closest('.faq-item').classList.toggle('open');
+    }
+
+    // ── Init ─────────────────────────────────────────────────
+    for (let i = 0; i < DEFAULT_ROWS; i++) addRow(false);
+    // Calculate immediately on load so stats show (like competitor with default 10000)
+    calculate();
+  </script>
+</body>
+
+</html>
